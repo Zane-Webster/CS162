@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // run script when ready
+            document.addEventListener('DOMContentLoaded', function() {
+                //////// MULTIPLE CHOICE
+                // flag for if answer has already been correctly answered. if it has, do not allow user to continue answering 
+                let correctly_answered = false;
+                // get correct answer
+                let correct = document.querySelector('.correct');
+                // listen for click on correct answer
+                correct.addEventListener('click', function() {
+                    if (!correctly_answered) {
+                        correct.style.backgroundColor = 'green';
+                        document.querySelector('#feedback1').innerHTML = 'Correct! In JavaScript, [] == ![]';
+                        correctly_answered = true;
+                    };
+                });
+
+                // listen for incorrect answers
+                let incorrects = document.querySelectorAll('.incorrect');
+                // for each incorrect answer
+                incorrects.forEach(incorrect_button => {
+                    // listen for click
+                    incorrect_button.addEventListener('click', function() {
+                        if (!correctly_answered) {
+                            // when clicked, set to red, update feedback and disable button so it cannot be clicked again
+                            incorrect_button.style.backgroundColor = 'red';
+                            document.querySelector('#feedback1').innerHTML = 'Incorrect';
+                            incorrect_button.disabled = true;
+                        };
+                    });
+                });
+
+                //////// FREE RESPONSE
+                // listen for check answer button being clicked
+                document.querySelector('#check-answer').addEventListener('click', function() {
+                    let input = document.querySelector('input');
+                    if (input.value == '1995') {
+                        input.style.backgroundColor = 'green';
+                        document.querySelector('#feedback2').innerHTML = 'Correct!';
+                    } else {
+                        input.style.backgroundColor = 'red';
+                        document.querySelector('#feedback2').innerHTML = 'Incorrect'
+                    }
+                });
+            });
+        </script>
+</head>
+    <body>
+        <div class="header">
+            <h1>Trivia! - Zane Webster</h1>
+        </div>
+
+        <div class="container">
+            <!-- MULTIPLE CHOICE -->
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>In which programming language is [] == ![]?</h3>
+                <button class="incorrect">C++</button>
+                <button class="correct">JavaScript</button>
+                <button class="incorrect">Python</button>
+                <button class="incorrect">Java</button>
+                <p id="feedback1"></p>
+            </div>
+
+            <!-- FREE RESPONSE -->
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>In which year was the JavaScript programming language created?</h3>
+                <input type="text">
+                <button id="check-answer">Check Answer</button>
+                <p id="feedback2"></p>
+            </div>
+        </div>
+    </body>
+</html>
+
